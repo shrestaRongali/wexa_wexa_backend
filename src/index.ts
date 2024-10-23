@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import cors from "cors";
 import 'module-alias/register';
@@ -84,6 +84,7 @@ if (EXPRS.globalVariables) {
 
 // Import application routes.
 import { AppRoutes } from "@AppRoutes/index";
+import { CustomError } from "@AppErrors/custom-error";
 
 try {
     AppRoutes.initializeAppMiddleWares();
@@ -98,4 +99,4 @@ EXPRS.app.all('*', async (req: Request, res: Response) => {
 });
 
 // Use the errorHandler middleware to handle errors.
-EXPRS.app.use(errorHandler);
+EXPRS.app.use(errorHandler as unknown as (err: Error, req: Request, res: Response, next: NextFunction) => void);
