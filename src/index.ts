@@ -27,7 +27,9 @@ const limiter = rateLimit({
 appObj.use(limiter)
 
 // Enable Cross-Origin Resource Sharing (CORS) middleware.
-appObj.use(cors());
+appObj.use(cors({
+    origin: '*'
+}));
 
 // Parse incoming JSON requests with a size limit of 50MB.
 appObj.use(express.json({ limit: "500mb" }));
