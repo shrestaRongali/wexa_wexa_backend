@@ -99,4 +99,4 @@ EXPRS.app.all('*', async (req: Request, res: Response) => {
 });
 
 // Use the errorHandler middleware to handle errors.
-EXPRS.app.use(errorHandler as unknown as (err: Error, req: Request, res: Response, next: NextFunction) => void);
+EXPRS.app.use(errorHandler as unknown as (err: Error | CustomError, req: Request, res: Response, next: NextFunction) => void);
