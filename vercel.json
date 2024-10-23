@@ -8,7 +8,7 @@
     ],
     "routes": [
       {
-        "src": "/wexa/(.*)", 
+        "src": "/routes/(.*)", 
         "dest": "/index.js" 
       }
     ]
