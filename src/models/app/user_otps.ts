@@ -4,7 +4,7 @@ import { Model, Sequelize, BuildOptions, DataTypes } from 'sequelize';
  * Interface representing the attributes of the UserOtp model.
  */
 export interface UserOtpAttributes {
-    id: number;
+    id?: number;
 	user_id: number;
 	phone: string;
 	otp: number;
@@ -59,5 +59,14 @@ export function initUserOtpModel(sequelize: Sequelize): UserOtpModel {
 			allowNull: false,
 			defaultValue: DataTypes.NOW,
 		},
-	});
+	},
+	{
+        timestamps: false,
+        // paranoid: true,
+		// createdAt: 'created_at', 
+        // updatedAt: 'updated_at',
+        tableName: 'user_otps',
+        schema: 'public', // Specify your schema here (e.g., 'public')
+	}
+);
 }

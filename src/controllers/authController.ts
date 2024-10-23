@@ -107,6 +107,7 @@ export class AuthController extends DefaultController {
       		otp = Math.floor(1000 + Math.random() * 9000);
     	}
 
+		console.log("jbhgyuikjm")
 		const UserOtpModel = this.getAppObj().models.user_otps
 		await this._globalService.insertRecord(UserOtpModel,{phone: phone,otp: otp})
 

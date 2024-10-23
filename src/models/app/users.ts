@@ -4,7 +4,7 @@ import { Model, Sequelize, BuildOptions, DataTypes } from 'sequelize';
  * Interface representing the attributes of the User model.
  */
 export interface UserAttributes {
-	id: number;
+	id?: number;
 	name: string;
 	email: string;
 	phone: string;
@@ -72,5 +72,13 @@ export function initUserModel(sequelize: Sequelize): UserModel {
 			allowNull: false,
 			defaultValue: DataTypes.NOW,
 		},
-	});
+	},
+	{
+        timestamps: false,
+        // paranoid: true,
+		// createdAt: 'created_at', 
+        // updatedAt: 'updated_at',
+        tableName: 'users',
+        schema: 'public', // Specify your schema here (e.g., 'public')
+    });
 }

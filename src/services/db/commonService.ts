@@ -8,7 +8,11 @@ export class CommonService extends GlobalService {
         const cdnUrl = this.getAppObj().globalVariables.EXPRS_CDN_URL;
 
 		let sqlQuery = `
-		SELECT U.id, U.name, U.phone, U.email, CONCAT('${cdnUrl}', CTI.image_url) AS url , U.last_log_in
+		SELECT U.id, U.name, U.phone, U.email, 
+		CASE 
+		 WHEN CTI.image_url IS NOT NULL THEN CONCAT('${cdnUrl}', CTI.image_url) 
+		 ELSE NULL
+		END AS url , U.last_log_in
         FROM users as U
 		LEFT JOIN ct_images CTI ON CTI.user_id = U.id
         WHERE U.id = ${user_id}`;

@@ -29,30 +29,23 @@ export class DB<T extends { initModel: (sequelize: Sequelize) => any }> extends 
 	 */
 	async initializeSequelize() {
 		try {
-				const dialect: Dialect = 'mysql';
-
-				const sequelizeProps = {
-					host: process.env.SERVERLESS_DB_HOST_URL!,
-					port: +process.env.SERVERLESS_DB_HOST_PORT!,
-					dialect: dialect,
-					logging: true,
-					enableArithAbort: true,
-					useUTC: true,
-					write: { host: process.env.SERVERLESS_DB_HOST_URL! },
-					define: {
-						// Prevent Sequelize from pluralizing table names
-						freezeTableName: true,
-						timestamps: false,
-					},
-				};
+				const dialect: Dialect = 'postgres';
 
 				try {
 					const sequelize = new Sequelize(
-						process.env.DB!,
-						process.env.SERVERLESS_DB_USERNAME!,
-						process.env.SERVERLESS_DB_PASSWORD!,
-						sequelizeProps
-					);
+						process.env.DB!, process.env.SERVERLESS_DB_USERNAME!, process.env.SERVERLESS_DB_PASSWORD!, {
+							host: process.env.SERVERLESS_DB_HOST_URL!, // e.g., dpg-csb6jgl6l47c73f8u5bg-a.oregon-postgres.render.com
+							dialect: dialect, // or 'mysql'
+							port: +process.env.SERVERLESS_DB_HOST_URL!, // or 3306 for MySQL
+							logging: console.log,
+							dialectOptions: {
+								ssl: {
+									require: true,
+									rejectUnauthorized: false, // Set this to true if you want to validate the server certificate
+								},
+								connectTimeout: 60000, // Increase timeout to 60 seconds
+							} // optional
+						});
 
 					this._appObj.dBObject = sequelize;
 					await sequelize.authenticate();
@@ -78,6 +71,7 @@ export class DB<T extends { initModel: (sequelize: Sequelize) => any }> extends 
 			const { initModel } = modelModule;
 			const modelInit = initModel(sequelize);
 			const modelName = modelInit.name;
+			const schema = 
 			this._appObj.models[modelName] = modelInit;
 		}
 		console.log(`this._appObj.models`, this._appObj.models);

@@ -4,7 +4,7 @@ import { Model, Sequelize, BuildOptions, DataTypes } from 'sequelize';
  * Interface representing the attributes of the Chats model.
  */
 export interface ChatsAttributes {
-    id: number;
+    id?: number;
     from_user: number;
     to_user: number;
 	created_at: string;
@@ -54,5 +54,13 @@ export function initChatsModel(sequelize: Sequelize): ChatsModel {
 			allowNull: false,
 			defaultValue: DataTypes.NOW,
 		},
+	},
+	{
+        timestamps: false,
+        // paranoid: true,
+		// createdAt: 'created_at', 
+        // updatedAt: 'updated_at',
+        tableName: 'chats',
+        schema: 'public', // Specify your schema here (e.g., 'public')
 	});
 }

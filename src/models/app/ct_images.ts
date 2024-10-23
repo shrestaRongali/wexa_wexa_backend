@@ -4,7 +4,7 @@ import { Model, Sequelize, BuildOptions, DataTypes } from 'sequelize';
  * Interface representing the attributes of the CTImages model.
  */
 export interface CTImagesAttributes {
-    id: number;
+    id?: number;
     user_id: number;
 	image_url: string;
 	created_at: string;
@@ -48,5 +48,13 @@ export function initCTImagesModel(sequelize: Sequelize): CTImagesModel {
 			allowNull: false,
 			defaultValue: DataTypes.NOW,
 		},
+	},
+	{
+        timestamps: false,
+        // paranoid: true,
+		// createdAt: 'created_at', 
+        // updatedAt: 'updated_at',
+        tableName: 'ct_images',
+        schema: 'public', // Specify your schema here (e.g., 'public')
 	});
 }

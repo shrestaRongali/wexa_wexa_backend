@@ -98,4 +98,4 @@ EXPRS.app.all('*', async (req: Request, res: Response) => {
 });
 
 // Use the errorHandler middleware to handle errors.
-// EXPRS.app.use(errorHandler);
+EXPRS.app.use(errorHandler);

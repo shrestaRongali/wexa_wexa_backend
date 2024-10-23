@@ -60,5 +60,13 @@ export function initRequestsModel(sequelize: Sequelize): RequestsModel {
 			allowNull: false,
 			defaultValue: DataTypes.NOW,
 		},
+	},
+	{
+        timestamps: false,
+        // paranoid: true,
+		// createdAt: 'created_at', 
+        // updatedAt: 'updated_at',
+        tableName: 'requests',
+        schema: 'public', // Specify your schema here (e.g., 'public')
 	});
 }
